@@ -1,6 +1,6 @@
 module.exports = {
   db: {
-    connectionSring: 'mongodb://localhost:27017/test',
+    connectionSring: 'mongodb://localhost:27017/snet',
   },
   jwt: {
     key: 'jwt-secret',

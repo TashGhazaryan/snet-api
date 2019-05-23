@@ -6,29 +6,32 @@ import {
   BaseApiError,
   UnauthorizedError,
   ValidationError,
-  NotFoundError,
+  NotFoundError
 } from '../lib/exceptions';
 
 const logger = winston.createLogger({
   format: winston.format.combine(
     winston.format.timestamp(),
-    winston.format.printf((info) => {
+    winston.format.printf(info => {
       const { error } = info.meta;
-      return `${info.timestamp} ${error.name}: ${error.message} \n${info.meta.stack}`;
-    }),
+      return `${info.timestamp} ${error.name}: ${error.message} \n${
+        info.meta.stack
+      }`;
+    })
   ),
-  transports: [new winston.transports.Console()],
+  transports: [new winston.transports.Console()]
 });
 
-module.exports = function (app) {
-  app.route('/*')
-    .all((req, res, next) => {
-      next(new NotFoundError('Resource not found.'));
-    });
+module.exports = function(app) {
+  app.route('/*').all((req, res, next) => {
+    next(new Error('Resource not found.'));
+  });
 
-  app.use(expressWinston.errorLogger({
-    winstonInstance: logger,
-  }));
+  app.use(
+    expressWinston.errorLogger({
+      winstonInstance: logger
+    })
+  );
 
   /**
    * Default error handler
@@ -57,7 +60,7 @@ module.exports = function (app) {
     if (err.name === 'UnauthorizedError') {
       err = new UnauthorizedError(
         'Authentication token is either invalid or expired.',
-        err.message,
+        err.message
       );
     }
     if (err instanceof MongooseError.ValidationError) {
@@ -66,13 +69,16 @@ module.exports = function (app) {
     if (err instanceof BaseApiError) {
       res.status(err.status).json({
         message: err.message,
-        details: err.details || [],
+        details: err.details || []
       });
     } else {
-      res.status(500).json({
-        message: 'Something went wrong',
-        details: err.details || [],
-      }).end();
+      res
+        .status(500)
+        .json({
+          message: 'Something went wrong',
+          details: err.details || []
+        })
+        .end();
     }
   });
 };

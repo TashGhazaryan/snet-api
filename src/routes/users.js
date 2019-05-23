@@ -10,8 +10,26 @@ router.put('/me', validators.updateCurrent, controller.updateCurrentUser);
 
 router.get('/', validators.index, controller.index);
 router.post('/', validators.create, controller.create);
-router.get('/:id', validators.show, checkIfModelExists('User'), controller.show);
-router.put('/:id', validators.update, checkIfModelExists('User'), controller.update);
-router.delete('/:id', validators.destroy, checkIfModelExists('User'), controller.destroy);
+router.post('/follow', controller.follow);
+router.get('/followers', controller.followers);
+router.get('/following', controller.following);
+router.get(
+  '/:id',
+  validators.show,
+  checkIfModelExists('User'),
+  controller.show
+);
+router.put(
+  '/:id',
+  validators.update,
+  checkIfModelExists('User'),
+  controller.update
+);
+router.delete(
+  '/:id',
+  validators.destroy,
+  checkIfModelExists('User'),
+  controller.destroy
+);
 
 module.exports = router;

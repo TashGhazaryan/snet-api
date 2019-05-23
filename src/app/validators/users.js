@@ -5,7 +5,7 @@ const SCHEMA = {
   firstName: Joi.string().label('First Name'),
   lastName: Joi.string().label('Last Name'),
   username: Joi.string().label('Username'),
-  password: Joi.string().label('Password'),
+  password: Joi.string().label('Password')
 };
 
 export default {
@@ -14,10 +14,10 @@ export default {
     firstName: Joi.string().label('First Name'),
     lastName: Joi.string().label('Last Name'),
     username: Joi.string().label('Username'),
-    role: Joi.number(),
+    role: Joi.number()
   }),
   ...getCRUDValidators(SCHEMA),
   updateCurrent: celebrate({
-    body: SCHEMA,
-  }),
+    body: SCHEMA
+  })
 };
