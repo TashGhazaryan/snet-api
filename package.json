@@ -26,7 +26,7 @@
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
-    "mongoose": "^5.2.9",
+    "mongoose": "^5.7.5",
     "mongoose-delete": "^0.4.0",
     "mongoose-paginate": "git+https://github.com/andhovesyan/mongoose-paginate.git",
     "mongoose-schema-extend": "git+https://github.com/kennylmay/mongoose-schema-extend.git",
